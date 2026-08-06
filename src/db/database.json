@@ -1,3 +1,17 @@
 {
-	"database_fake": []
+  "database_fake": [
+    {
+      "title": "to duro",
+      "description": "muito duro mesmo",
+      "price_value": "2",
+      "id": "O2dvCboV6mQ"
+    },
+    {
+      "title": "Novo",
+      "description": "Alguma coisa aqui",
+      "price_value": "244",
+      "id": "wmVAjOADi7k"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

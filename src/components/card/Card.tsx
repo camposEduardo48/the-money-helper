@@ -88,12 +88,6 @@ export const Card = ({ children }: Props) => {
 	return (
 		<section className="flex rounded-4xl border transition duration-350 hover:border-white/30 hover:scale-x-101 hover:cursor-pointer border-white/10 bg-white/10 backdrop-blur-xs shadow-2xs p-2 h-auto w-full m-4 ml-0 mr-0">
 			<article className="flex flex-col justify-between p-2 h-full w-full">
-				<p>
-					Mussum Ipsum, cacilds vidis litro abertis. Interessantiss quisso pudia
-					ce receita de bolis, mais bolis eu num gostis. Detraxit consequat et
-					quo num tendi nada. Sapien in monti palavris qui num significa nadis i
-					pareci latim. Suco de cevadiss deixa as pessoas mais interessantis.
-				</p>
 				{children}
 				<article className="flex text-white/50 justify-between h-auto w-full p-1">
 					<div>R$48,99</div>

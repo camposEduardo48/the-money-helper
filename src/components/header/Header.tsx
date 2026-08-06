@@ -7,9 +7,8 @@ import {
 	IconSearch,
 	IconUser,
 } from "@tabler/icons-react"
-import { motion, testValueType } from "framer-motion"
-import { form } from "framer-motion/client"
-import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
+import { useState } from "react"
 import { GlassButton } from "../button/GButton"
 import { Modal } from "../modal/Modal"
 
@@ -46,7 +45,7 @@ export const Header = () => {
 		}
 		// testando o envio dos dados para o json-server local
 		try {
-			await fetch("/src/db/database.json", {
+			await fetch("http://localhost:2222/database_fake", {
 				method: "POST",
 				headers: {
 					"content-type": "application/type",
@@ -62,10 +61,6 @@ export const Header = () => {
 			console.error(error)
 		}
 	}
-
-	useEffect(() => {
-		sendNewDatasAboutFinance
-	}, [])
 
 	return (
 		<header className="flex z-40 justify-between items-center box-border absolute h-14 w-full top-0 left-0 m-0 pr-4 pl-4 bg-white/10 backdrop-blur-xs shadow-2xl">
@@ -121,7 +116,7 @@ export const Header = () => {
 							<div className="flex gap-2">
 								<p>Titulo</p>
 								<input
-									className="bg-white/10 border-b px-1"
+									className="bg-white/10 border-b p-1 rounded-sm"
 									type="text"
 									name="title"
 									onChange={(event) => setTitleData(event.target.value)}
@@ -131,7 +126,7 @@ export const Header = () => {
 							<div className="flex flex-col gap-2">
 								<p>Descrição</p>
 								<textarea
-									className="bg-white/10 border-b px-1"
+									className="bg-white/10 border-b p-1"
 									name="description"
 									onChange={(event) => setDescriptionData(event.target.value)}
 									id=""
@@ -140,7 +135,7 @@ export const Header = () => {
 							<div className="flex gap-2">
 								<p>R$</p>
 								<input
-									className="bg-white/10 border-b px-1"
+									className="bg-white/10 border-b p-1 rounded-sm"
 									type="number"
 									name="price"
 									onChange={(event) => setPriceValueData(event.target.value)}
@@ -151,8 +146,8 @@ export const Header = () => {
 								Resposta de envio bem sucedida e fechamento após alguns seconds
 							</small>
 							<button
-								className="bg-white/10 cursor-pointer p-1"
-								onClick={() => "sendNewDatasAboutFinance"}
+								className="bg-white/10 cursor-pointer p-1 rounded-sm"
+								onClick={() => sendNewDatasAboutFinance}
 								type="submit"
 							>
 								Add
