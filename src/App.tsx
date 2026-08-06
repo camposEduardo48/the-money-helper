@@ -17,7 +17,7 @@ function App() {
 			{/* <Modal /> */}
 			<Header />
 			<Container>
-				<main className="flex">
+				<main className="flex box-border overflow-hidden">
 					<Section>
 						<Card />
 					</Section>
