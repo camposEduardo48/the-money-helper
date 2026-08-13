@@ -11,6 +11,36 @@
       "description": "Alguma coisa aqui",
       "price_value": "244",
       "id": "wmVAjOADi7k"
+    },
+    {
+      "title": "ola mundo",
+      "description": "tan tan tan",
+      "price_value": "234",
+      "id": "nnX7yDWZ9mE"
+    },
+    {
+      "title": "34edr",
+      "description": "efdfsdf",
+      "price_value": "344",
+      "id": "VdqdogDCAME"
+    },
+    {
+      "title": "Jorge",
+      "description": "'sedasdw",
+      "price_value": "31",
+      "id": "cT9De0RanMU"
+    },
+    {
+      "title": "Novo item",
+      "description": "tatnantns",
+      "price_value": "10",
+      "id": "qGKapxgRMfE"
+    },
+    {
+      "title": "Novo teste 02",
+      "description": "tatnatnstna",
+      "price_value": "20",
+      "id": "jWGjYZ5PSVA"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

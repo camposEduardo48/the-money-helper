@@ -20,8 +20,7 @@ export const Modal = ({ children, onClick, title }: ModalProps) => {
 						</div>
 					</nav>
 				</header>
-				<article className="flex h-auto w-full flex-col p-4">
-					<small>Content</small>
+				<article className="flex items-center justify-center h-auto w-full flex-col p-4">
 					{children}
 				</article>
 				<small>

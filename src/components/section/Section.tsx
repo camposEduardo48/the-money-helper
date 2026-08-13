@@ -1,4 +1,6 @@
 import {
+	IconArrowNarrowDown,
+	IconArrowNarrowUp,
 	IconCashBanknoteMinus,
 	IconCashBanknotePlus,
 	IconEyeBolt,
@@ -54,23 +56,20 @@ export const Section = ({ children }: Props) => {
 								<div className="flex align-center justify-center p-2">
 									<IconUserCircle color="white" stroke={0.5} size={80} />
 								</div>
-								<div className="flex align-center justify-center border">
+								<div className="flex align-center justify-center">
 									<p>{item.id}</p>
 								</div>
-								<div className="flex align-center justify-center border">
-									<span>icon</span>
+								<div className="flex align-center justify-center">
+									<div className="flex">
+										<IconArrowNarrowDown color="green" stroke={2} />
+										<IconArrowNarrowUp color="red" stroke={2}/>
+									</div>
 								</div>
 							</aside>
-							<Card key={item.id}>
+							<Card price_value={item.price_value} key={item.id}>
 								<div>Titulo: {item.title}</div>
 								<small>Id: {item.id}</small>
 								<div>Descrição: {item.description}</div>
-								<small>
-									{new Intl.NumberFormat("pt-BR", {
-										style: "currency",
-										currency: "BRL",
-									}).format(item.price_value)}
-								</small>
 							</Card>
 							{/* {children} */}
 							<nav className="flex flex-col justify-center pr-2 pl-2">

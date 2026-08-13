@@ -1,10 +1,11 @@
 // import { Outlet } from "react-router"
 /** biome-ignore-all lint/a11y/useButtonType: <explanation> */
 import {} from "@tabler/icons-react"
-import { type ReactNode, useState } from "react"
+import { type ReactNode, useEffect, useState } from "react"
 
 interface Props {
 	children?: ReactNode
+	price_value: string
 }
 
 // const [isActive, setIsActive] = useState(false)
@@ -13,9 +14,29 @@ const changeThis = () => {
 	// setIsActive(!isActive)
 }
 
-export const Card = ({ children }: Props) => {
+export const Card = ({ children, price_value }: Props) => {
+	const [financialDatas, setFinancialDatas] = useState<boolean>()
+
 	const date = new Date()
 	let actualMonth = String(date.getMonth())
+
+	const getFinancialDatas = async() => {
+		try {
+			const response = await fetch("http://localhost:2222/database_fake", {
+				method: "GET"
+			})
+			const reply = await response.json()
+			console.log(reply.length > 0)
+			setFinancialDatas(reply.length > 0)
+
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	useEffect(() => {
+		getFinancialDatas()
+	}, [])
 
 	switch (actualMonth) {
 		case "0":
@@ -90,7 +111,10 @@ export const Card = ({ children }: Props) => {
 			<article className="flex flex-col justify-between p-2 h-full w-full">
 				{children}
 				<article className="flex text-white/50 justify-between h-auto w-full p-1">
-					<div>R$48,99</div>
+					<div>{financialDatas ? `${new Intl.NumberFormat("pt-BR", {
+										style: "currency",
+										currency: "BRL",
+									}).format(price_value)}` : "R$0,99"}</div>
 					<div>
 						<small>
 							<i>{actualDate}</i>

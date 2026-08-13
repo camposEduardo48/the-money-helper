@@ -1,7 +1,10 @@
 import {
 	IconArrowDown,
+	IconArrowNarrowDown,
+	IconArrowNarrowUp,
 	IconArrowUp,
 	IconCoins,
+	IconLoader2,
 	IconMinus,
 	IconPlus,
 	IconSearch,
@@ -15,6 +18,7 @@ import { Modal } from "../modal/Modal"
 export const Header = () => {
 	const [isClickedPlus, setIsClickedPlus] = useState(false)
 	const [pointsModal, setPointsModal] = useState(false)
+	const [isLoading, setIsLoading] = useState(false)
 
 	//state para armazenar inputs
 	const [titleData, setTitleData] = useState<string>("")
@@ -45,7 +49,7 @@ export const Header = () => {
 		}
 		// testando o envio dos dados para o json-server local
 		try {
-			await fetch("http://localhost:2222/database_fake", {
+			const reply = await fetch("http://localhost:2222/database_fake", {
 				method: "POST",
 				headers: {
 					"content-type": "application/type",
@@ -53,10 +57,16 @@ export const Header = () => {
 				// body á ser enviado no fetch POST
 				body: JSON.stringify(test_datas_finance),
 			})
-			console.log(
-				`to_send_test: ${<br />}
-				${test_datas_finance.title},${test_datas_finance.description}, ${test_datas_finance.price_value}`,
-			)
+			if (reply.status === 201) {
+				console.log(`Dados enviados com sucesso status: ${reply.status}`)
+				setIsLoading(true)
+				setTimeout(() => {
+					setIsClickedPlus(false)
+					setIsLoading(false)
+				}, 3000)
+			} else {
+				console.error(`Erro status: ${reply.status}`)
+			}
 		} catch (error) {
 			console.error(error)
 		}
@@ -97,6 +107,7 @@ export const Header = () => {
 					<IconSearch className="active:text-white/50" stroke={2} />
 				</div>
 			</div>
+			<div>total itens: 0</div>
 			<div>
 				<IconUser stroke={2} />
 			</div>
@@ -107,53 +118,82 @@ export const Header = () => {
 			)}
 			{isClickedPlus && (
 				<Modal title="Adicionar novo registro" onClick={plusActionButton}>
-					<motion.div animate={{ y: 4 }}>
-						<form
-							onSubmit={sendNewDatasAboutFinance}
-							className="flex flex-col gap-4"
-							action=""
-						>
-							<div className="flex gap-2">
-								<p>Titulo</p>
-								<input
-									className="bg-white/10 border-b p-1 rounded-sm"
-									type="text"
-									name="title"
-									onChange={(event) => setTitleData(event.target.value)}
-									id=""
-								/>
-							</div>
-							<div className="flex flex-col gap-2">
-								<p>Descrição</p>
-								<textarea
-									className="bg-white/10 border-b p-1"
-									name="description"
-									onChange={(event) => setDescriptionData(event.target.value)}
-									id=""
-								/>
-							</div>
-							<div className="flex gap-2">
-								<p>R$</p>
-								<input
-									className="bg-white/10 border-b p-1 rounded-sm"
-									type="number"
-									name="price"
-									onChange={(event) => setPriceValueData(event.target.value)}
-									id=""
-								/>
-							</div>
-							<small>
-								Resposta de envio bem sucedida e fechamento após alguns seconds
-							</small>
-							<button
-								className="bg-white/10 cursor-pointer p-1 rounded-sm"
-								onClick={() => sendNewDatasAboutFinance}
-								type="submit"
+					{!isLoading ? (
+						<motion.div animate={{ y: 4 }}>
+							<form
+								onSubmit={sendNewDatasAboutFinance}
+								className="flex flex-col gap-4"
+								action=""
 							>
-								Add
-							</button>
-						</form>
-					</motion.div>
+								<div className="flex gap-2">
+									<p>Titulo</p>
+									<input
+										className="bg-white/10 border-b p-1 rounded-sm"
+										type="text"
+										name="title"
+										onChange={(event) => setTitleData(event.target.value)}
+										id=""
+									/>
+								</div>
+								<div className="flex flex-col gap-2">
+									<p>Descrição</p>
+									<textarea
+										className="bg-white/10 border-b p-1"
+										name="description"
+										onChange={(event) => setDescriptionData(event.target.value)}
+										id=""
+									/>
+								</div>
+								<div className="flex items-center gap-2">
+									<select className="bg-slate-800 cursor-pointer" name="selectorOfFinancialType" id="">
+										<option className="cursor-pointer" value="" defaultValue={''}>Selecione</option>
+										<option className="cursor-pointer" value="in">
+											<div>
+												Entrada
+											</div>
+										</option>
+										<option className="cursor-pointer" value="out">
+											<div>
+												Saída
+											</div>
+										</option>
+									</select>
+									{true ? (<div>
+											<IconArrowNarrowDown color="green" stroke={2} />
+									</div>) : (
+											<div>
+												<IconArrowNarrowUp color="red" stroke={2}/>
+											</div>
+											)}
+								</div>
+								<div className="flex gap-2">
+									<p>R$</p>
+									<input
+										className="bg-white/10 border-b p-1 rounded-sm"
+										type="number"
+										name="price"
+										onChange={(event) => setPriceValueData(event.target.value)}
+										id=""
+									/>
+								</div>
+								<small>
+									Resposta de envio bem sucedida e fechamento após alguns
+									seconds
+								</small>
+								<button
+									className="bg-white/10 cursor-pointer p-1 rounded-sm"
+									onClick={() => sendNewDatasAboutFinance}
+									type="submit"
+								>
+									Add
+								</button>
+							</form>
+						</motion.div>
+					) : (
+						<article className="flex px-2">
+							<IconLoader2 stroke={2} size={100} className="animate-spin" />
+						</article>
+					)}
 				</Modal>
 			)}
 		</header>
